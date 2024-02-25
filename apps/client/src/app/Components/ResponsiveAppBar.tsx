@@ -13,7 +13,7 @@ import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
 import { useLoggedInAuth } from './Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 
 function ResponsiveAppBar() {
   const { user, logout } = useLoggedInAuth();
