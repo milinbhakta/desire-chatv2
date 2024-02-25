@@ -91,23 +91,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.log('Channel watched');
     });
 
-    const addDefaultChannel1 = chat.channel('messaging', 'Travel', {
-      name: 'Travel',
-      members: [user.id, 'admin'],
-    });
-
-    addDefaultChannel1.create().then(() => {
-      console.log('Channel created');
-    });
-
-    addDefaultChannel1.addMembers([user.id]).then(() => {
-      console.log('Member added');
-    });
-
-    addDefaultChannel1.watch().then(() => {
-      console.log('Channel watched');
-    });
-
     console.log('chat', chat);
 
     return () => {
