@@ -17,7 +17,6 @@ import {
   Avatar,
   Box,
   CircularProgress,
-  ListItem,
   ListItemAvatar,
   ListItemButton,
   ListItemText,
@@ -43,7 +42,10 @@ const ChatPage = () => {
     return (
       <ListItemButton onClick={() => setActiveChannel?.(channel)}>
         <ListItemAvatar>
-          <Avatar alt={channel.data?.name} src={`${channel.data?.image}`} />
+          <Avatar
+            alt={channel.data?.name}
+            src={`https://robohash.org/${channel.data?.name}`}
+          />
         </ListItemAvatar>
         <ListItemText
           primary={channel.data?.name || 'Unnamed Channel'}
@@ -65,20 +67,27 @@ const ChatPage = () => {
     <div>
       {streamChat && (
         <Chat client={streamChat}>
-          <ChannelList
-            filters={filters}
-            sort={sort}
-            options={options}
-            Preview={CustomChannelPreview}
-          />
-          <Channel>
-            <Window>
-              <ChannelHeader />
-              <MessageList />
-              <MessageInput />
-            </Window>
-            <Thread />
-          </Channel>
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <ChannelList
+                filters={filters}
+                sort={sort}
+                options={options}
+                Preview={CustomChannelPreview}
+                showChannelSearch
+              />
+            </Box>
+            <Box sx={{ flexGrow: 8 }}>
+              <Channel>
+                <Window>
+                  <ChannelHeader />
+                  <MessageList />
+                  <MessageInput />
+                </Window>
+                <Thread />
+              </Channel>
+            </Box>
+          </Box>
         </Chat>
       )}
     </div>

@@ -17,7 +17,7 @@ const HomePage = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   const handleLogin = async () => {
-    await login({ id: convertNameToId(name), name, image: '' });
+    await login({ id: convertNameToId(name), name, image: `https://robohash.org/${name}` });
     navigate('/chat');
   };
 

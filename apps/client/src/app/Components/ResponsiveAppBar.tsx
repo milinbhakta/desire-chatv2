@@ -10,13 +10,13 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ForumRoundedIcon from '@mui/icons-material/ForumRounded';
-import { useAuth } from './Context/AuthProvider';
+import { useLoggedInAuth } from './Context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-  const { user, logout } = useAuth();
+  const { user, logout } = useLoggedInAuth();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null

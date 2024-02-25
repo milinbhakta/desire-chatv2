@@ -76,7 +76,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const addDefaultChannel = chat.channel('messaging', 'general', {
       name: 'General',
-      members: [user.id],
+      members: [user.id, 'admin'],
     });
 
     addDefaultChannel.create().then(() => {
@@ -91,11 +91,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
       console.log('Channel watched');
     });
 
-    const allUserChannels = chat
-      .queryChannels({ members: { $in: [user.id] } }, { last_message_at: -1 })
-      .then((channels) => {
-        console.log('All user channels', channels);
-      });
+    const addDefaultChannel1 = chat.channel('messaging', 'Travel', {
+      name: 'Travel',
+      members: [user.id, 'admin'],
+    });
+
+    addDefaultChannel1.create().then(() => {
+      console.log('Channel created');
+    });
+
+    addDefaultChannel1.addMembers([user.id]).then(() => {
+      console.log('Member added');
+    });
+
+    addDefaultChannel1.watch().then(() => {
+      console.log('Channel watched');
+    });
+
+    console.log('chat', chat);
 
     return () => {
       isInterrupted = true;
