@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './Components/Layout';
 import HomePage from './pages/Home';
 import { AuthProvider } from './Components/Context/AuthProvider';
-import Chat from './pages/Chat';
+import Chat from './pages/ChatPage';
 
 const App: React.FC = () => (
   <AuthProvider>

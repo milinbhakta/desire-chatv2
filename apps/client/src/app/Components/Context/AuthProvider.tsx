@@ -1,111 +1,117 @@
-import axios, { AxiosResponse } from 'axios';
-import {
-  createContext,
-  useContext,
-  ReactNode,
-  useState,
-  useEffect,
-} from 'react';
-import { StreamChat } from 'stream-chat';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { Channel, StreamChat } from 'stream-chat';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { User } from '../../types';
-import useStreamClient from '../../hooks/useStreamClient';
 
-// Define all info needed for an authed state
 type AuthContext = {
-  // data in response, error, value to passed into actual function
-  user?: User;
+  login: (user: User) => Promise<void>;
+  user: User | undefined;
   streamChat?: StreamChat;
-  login: (user: User) => any;
-  logout: () => void;
+  logout: () => Promise<void>;
+  allUserChannels?: Channel[];
 };
 
-const Context = createContext<AuthContext | null>(null);
+const context = React.createContext<AuthContext | null>(null);
 
-// For other files to retrieve auth info
 export function useAuth() {
-  return useContext(Context) as AuthContext;
+  return useContext(context) as AuthContext;
 }
 
-// For other files to retrieve auth info assuming users have logged in
 export function useLoggedInAuth() {
-  return useContext(Context) as AuthContext &
+  return useContext(context) as AuthContext &
     Required<Pick<AuthContext, 'user'>>;
 }
 
 type AuthProviderProps = {
-  children: ReactNode;
+  children: React.ReactNode;
+};
+
+type User = {
+  id: string;
+  name: string;
+  image?: string;
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const chat = useStreamClient();
-
-  // Store logged in user and their token in local storage so they will
-  // be logged in automatically upon refresh
   const [user, setUser] = useLocalStorage<User>('user');
   const [token, setToken] = useLocalStorage<string>('token');
   const [streamChat, setStreamChat] = useState<StreamChat>();
 
-  // Log in user
   const login = async (user: User) => {
-    // get token from server
-    await axios
-      .post(`${import.meta.env.VITE_SERVER_URL}/token`, { user_id: user.id })
-      .then((res: AxiosResponse<{ token: string }>) => {
-        // store user and token in local storage
-        setUser(user);
-        setToken(res.data.token);
-      });
-
-    return user;
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/token`,
+        { user_id: user.id }
+      );
+      setUser(user);
+      setToken(response.data.token);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
   };
 
-  // Log out user
-  const logout = () => {
-    // clear user and token from local storage
-    setUser(undefined);
-    setToken(undefined);
+  const logout = async () => {
+    try {
+      streamChat?.disconnectUser();
+      setUser(undefined);
+      setToken(undefined);
+      setStreamChat(undefined);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    // do nothing if user invalid
-    if (token == null || user == null) return;
+    if (!token || !user) return;
+    const chat = new StreamChat(import.meta.env.VITE_STREAM_API_KEY);
 
-    //  chat is already connected
-    if (chat === undefined) return;
-
-    // don't login the same user again
-    if (chat.tokenManager.token === token && chat.userID === user.id) {
-      return;
-    }
-
+    if (chat.tokenManager.token === token && chat?.userID === user.id) return;
     let isInterrupted = false;
-    // try connect user
     const connectPromise = chat.connectUser(user, token).then(() => {
       if (isInterrupted) return;
       setStreamChat(chat);
     });
 
-    return () => {
-      // change interrupted state if we somehow call this again
-      isInterrupted = true;
-      // will clear chat and disconnect if login again
-      setStreamChat(undefined);
-      connectPromise.then(() => {
-        chat.disconnectUser();
+    const addDefaultChannel = chat.channel('messaging', 'general', {
+      name: 'General',
+      members: [user.id],
+    });
+
+    addDefaultChannel.create().then(() => {
+      console.log('Channel created');
+    });
+
+    addDefaultChannel.addMembers([user.id]).then(() => {
+      console.log('Member added');
+    });
+
+    addDefaultChannel.watch().then(() => {
+      console.log('Channel watched');
+    });
+
+    const allUserChannels = chat
+      .queryChannels({ members: { $in: [user.id] } }, { last_message_at: -1 })
+      .then((channels) => {
+        console.log('All user channels', channels);
       });
+
+    return () => {
+      isInterrupted = true;
+      setStreamChat(undefined);
+      connectPromise.then(() => chat.disconnectUser());
     };
-  }, [chat, token, user]);
+  }, [user, token]);
+
+  const authContextValue: AuthContext = {
+    login,
+    user,
+    streamChat,
+    logout,
+  };
+
   return (
-    <Context.Provider
-      value={{
-        user,
-        streamChat,
-        login,
-        logout,
-      }}
-    >
-      {children}
-    </Context.Provider>
+    <context.Provider value={authContextValue}>{children}</context.Provider>
   );
 }

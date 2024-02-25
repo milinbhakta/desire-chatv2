@@ -17,10 +17,8 @@ const HomePage = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   const handleLogin = async () => {
-    const res = await login({ id: convertNameToId(name), name, image: '' });
-    if (res) {
-      console.log('logged in');
-    }
+    await login({ id: convertNameToId(name), name, image: '' });
+    navigate('/chat');
   };
 
   useEffect(() => {
