@@ -13,6 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { stringAvatar } from '../utils';
 
 const getTimeStamp = (channel: Channel) => {
   let lastHours = channel.state.last_message_at?.getHours();
@@ -85,7 +86,11 @@ const MessagingChannelPreview = (props: MessagingChannelPreviewProps) => {
       dense
     >
       <ListItemAvatar>
-        <Avatar alt={channel.data?.name} src={``} />
+        <Avatar
+          {...stringAvatar(
+            channel.data && channel.data.name ? channel.data.name : 'No Name'
+          )}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={

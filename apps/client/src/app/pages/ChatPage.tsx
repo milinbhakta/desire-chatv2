@@ -49,7 +49,7 @@ const ChatPage = () => {
   }
 
   return (
-    <div>
+    <Box>
       {streamChat && (
         <Chat client={streamChat}>
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -74,7 +74,7 @@ const ChatPage = () => {
           </Box>
         </Chat>
       )}
-    </div>
+    </Box>
   );
 };
 
