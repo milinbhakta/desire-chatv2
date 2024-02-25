@@ -5,7 +5,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 type AuthContext = {
   login: (user: User) => Promise<void>;
-  user: User | undefined;
+  user?: User;
   streamChat?: StreamChat;
   logout: () => Promise<void>;
   allUserChannels?: Channel[];
