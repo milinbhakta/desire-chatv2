@@ -74,25 +74,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setStreamChat(chat);
     });
 
-    const addDefaultChannel = chat.channel('messaging', 'general', {
-      name: 'General',
-      members: [user.id, 'admin'],
-    });
-
-    addDefaultChannel.create().then(() => {
-      console.log('Channel created');
-    });
-
-    addDefaultChannel.addMembers([user.id]).then(() => {
-      console.log('Member added');
-    });
-
-    addDefaultChannel.watch().then(() => {
-      console.log('Channel watched');
-    });
-
-    console.log('chat', chat);
-
     return () => {
       isInterrupted = true;
       setStreamChat(undefined);
