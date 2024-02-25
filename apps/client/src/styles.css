@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+.str-chat {
+  --str-chat__channel-list-background-color: transparent !important;
+  /* testing css */
+  --str-chat__background-color: transparent !important;
+  --str-chat__secondary-background-color: transparent !important;
+  --str-chat__text-color: white !important;
+  --str-chat__border-color: white !important;
+}
+
+.str-chat__message-input {
+  --str-chat__message-input-background-color: transparent !important;
+  --str-chat__message-input-text-color: white !important;
+  --str-chat__message-input-placeholder-color: white !important;
+  --str-chat__message-input-border-color: white !important;
+}
+
+.str-chat__message-bubble {
+  color: #000000 !important;
+}
