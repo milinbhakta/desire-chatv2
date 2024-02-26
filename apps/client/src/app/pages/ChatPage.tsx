@@ -50,13 +50,18 @@ const ChatPage = () => {
   }
 
   return (
-    <Box sx={{ height: '100vh', overflow: 'hidden' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+      }}
+    >
       <Chat client={streamChat} theme={`messaging str-chat__theme-dark`}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'row',
-            height: '100%',
             overflow: 'hidden',
           }}
         >
