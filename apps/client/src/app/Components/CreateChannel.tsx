@@ -4,31 +4,21 @@ import type { UserResponse } from 'stream-chat';
 import _debounce from 'lodash.debounce';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
-
-// import './CreateChannel.css';
 import { StreamChatGenerics } from '../types';
 import {
+  Badge,
   Box,
+  Button,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemText,
   TextField,
   Typography,
+  styled,
 } from '@mui/material';
-
-const UserResult = ({ user }: { user: UserResponse<StreamChatGenerics> }) => (
-  <li className="messaging-create-channel__user-result">
-    <Avatar image={user.image} name={user.name} size={40} />
-    {user.online && (
-      <div className="messaging-create-channel__user-result-online" />
-    )}
-    <div className="messaging-create-channel__user-result__details">
-      <span>{user.name}</span>
-    </div>
-  </li>
-);
 
 type Props = {
   onClose: () => void;
@@ -177,90 +167,6 @@ const CreateChannel = (props: Props) => {
   }, [handleKeyDown]);
 
   return (
-    // <Box>
-    //   <header>
-    //     <div>
-    //       <div>To: </div>
-    //       <div>
-    //         {!!selectedUsers?.length && (
-    //           <List className="messaging-create-channel__users">
-    //             {selectedUsers.map((user) => (
-    //               <ListItem
-    //                 className="messaging-create-channel__user"
-    //                 onClick={() => removeUser(user)}
-    //                 key={user.id}
-    //               >
-    //                 <ListItemAvatar>
-    //                   <Avatar image={user.image} name={user.name} />
-    //                 </ListItemAvatar>
-    //                 <ListItemText
-    //                   primary={user.name}
-    //                   className="messaging-create-channel__user-text"
-    //                 />
-    //                 <IconButton onClick={() => removeUser(user)}>
-    //                   <CloseRoundedIcon />
-    //                 </IconButton>
-    //               </ListItem>
-    //             ))}
-    //           </List>
-    //         )}
-    //         <Box component="form" noValidate autoComplete="off">
-    //           <TextField
-    //             autoFocus
-    //             inputRef={inputRef}
-    //             value={inputText}
-    //             onChange={(e) => setInputText(e.target.value)}
-    //             placeholder={
-    //               !selectedUsers.length ? 'Start typing for suggestions' : ''
-    //             }
-    //             type="text"
-    //             className="messaging-create-channel__input"
-    //           />
-    //         </Box>
-    //       </div>
-    //       <IconButton className="close-mobile-create" onClick={onClose}>
-    //         <CloseRoundedIcon />
-    //       </IconButton>
-    //     </div>
-    //     <IconButton className="create-channel-button" onClick={createChannel}>
-    //       <AddBoxRoundedIcon />
-    //     </IconButton>
-    //   </header>
-    //   {inputText && (
-    //     <Box component="main">
-    //       <List className="messaging-create-channel__user-results">
-    //         {!!users?.length && !searchEmpty && (
-    //           <Box>
-    //             {users.map((user, i) => (
-    //               <ListItem
-    //                 button
-    //                 className={`messaging-create-channel__user-result ${
-    //                   focusedUser === i && 'focused'
-    //                 }`}
-    //                 onClick={() => addUser(user)}
-    //                 key={user.id}
-    //               >
-    //                 <UserResult user={user} />
-    //               </ListItem>
-    //             ))}
-    //           </Box>
-    //         )}
-    //         {searchEmpty && (
-    //           <ListItem
-    //             button
-    //             onClick={() => {
-    //               inputRef.current?.focus();
-    //               clearState();
-    //             }}
-    //             className="messaging-create-channel__user-result empty"
-    //           >
-    //             <ListItemText primary="No people found..." />
-    //           </ListItem>
-    //         )}
-    //       </List>
-    //     </Box>
-    //   )}
-    // </Box>
     <Box sx={{ padding: 2 }}>
       <Box
         sx={{
@@ -305,34 +211,53 @@ const CreateChannel = (props: Props) => {
           }
         />
       </Box>
-      <IconButton onClick={createChannel} sx={{ mt: 2 }}>
-        <AddBoxRoundedIcon />
-      </IconButton>
+      <Button
+        sx={{ mt: 2 }}
+        variant="outlined"
+        startIcon={<AddBoxRoundedIcon />}
+        onClick={createChannel}
+      >
+        Create
+      </Button>
       {inputText && (
         <Box component="main" sx={{ mt: 2 }}>
           <List>
             {!!users?.length &&
               !searchEmpty &&
               users.map((user, i) => (
-                <ListItem
-                  button
+                <ListItemButton
                   key={user.id}
                   selected={focusedUser === i}
                   onClick={() => addUser(user)}
                 >
-                  <UserResult user={user} />
-                </ListItem>
+                  <ListItemAvatar>
+                    {user.online ? (
+                      <StyledBadge
+                        overlap="circular"
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'right',
+                        }}
+                        variant="dot"
+                      >
+                        <Avatar name={user.name} image={user.image} />
+                      </StyledBadge>
+                    ) : (
+                      <Avatar name={user.name} image={user.image} />
+                    )}
+                  </ListItemAvatar>
+                  <ListItemText primary={user.name} />
+                </ListItemButton>
               ))}
             {searchEmpty && (
-              <ListItem
-                button
+              <ListItemButton
                 onClick={() => {
                   inputRef.current?.focus();
                   clearState();
                 }}
               >
                 <ListItemText primary="No people found..." />
-              </ListItem>
+              </ListItemButton>
             )}
           </List>
         </Box>
