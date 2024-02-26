@@ -92,7 +92,10 @@ const MessagingChannelHeader = (props: Props) => {
             }`}
           />
         </ListItemAvatar>
-        <ListItemText primary={channelName || title} />
+        <ListItemText
+          primary={channelName || title}
+          primaryTypographyProps={{ variant: 'h6' }}
+        />
       </ListItem>
       {/* {!isEditing ? null : <EditHeader />} */}
       {/* <Box>

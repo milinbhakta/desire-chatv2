@@ -37,7 +37,10 @@ const MessagingChannelListHeader = React.memo((props: Props) => {
       <ListItemAvatar>
         <Avatar image={image} name={name} />
       </ListItemAvatar>
-      <ListItemText primary={name || id} />
+      <ListItemText
+        primary={name || id}
+        primaryTypographyProps={{ variant: 'h6' }}
+      />
     </ListItem>
   );
 });
