@@ -4,7 +4,14 @@ import { useChannelStateContext, useChatContext } from 'stream-chat-react';
 import { StreamChatGenerics } from '../types';
 import { TypingIndicator } from './TypingIndicator';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import { Avatar, Box, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 
 type Props = {
   theme: string;
@@ -12,7 +19,6 @@ type Props = {
 };
 
 const MessagingChannelHeader = (props: Props) => {
-  const { theme, toggleMobile } = props;
   const { client } = useChatContext<StreamChatGenerics>();
   const { channel } = useChannelStateContext<StreamChatGenerics>();
   const [channelName, setChannelName] = useState(channel.data?.name || '');
@@ -74,36 +80,26 @@ const MessagingChannelHeader = (props: Props) => {
   );
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        gap: '1rem',
-      }}
-    >
-      <Box
-        onClick={() => toggleMobile()}
-        sx={{ padding: '0.5rem', cursor: 'pointer' }}
-      >
-        <MenuRoundedIcon />
-      </Box>
-      <Avatar>{channelName.charAt(0).toUpperCase()}</Avatar>
-      {/* <AvatarGroup members={members} /> */}
-      {!isEditing ? (
-        <Typography variant="body1">{channelName || title}</Typography>
-      ) : (
-        <EditHeader />
-      )}
-      <Box>
+    <Box sx={{ paddingLeft: 2 }}>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar
+            alt={`${members[0].user?.name}`}
+            src={`${members[0].user?.image}`}
+          />
+        </ListItemAvatar>
+        <ListItemText primary={channelName || title} />
+      </ListItem>
+      {/* {!isEditing ? null : <EditHeader />} */}
+      {/* <Box>
         <TypingIndicator />
-        {/* {channelName !== 'Social Demo' &&
+        {channelName !== 'Social Demo' &&
           (!isEditing ? (
             <ChannelInfoIcon {...{ isEditing, setIsEditing }} />
           ) : (
             <ChannelSaveIcon />
-          ))} */}
-      </Box>
+          ))}
+      </Box> */}
     </Box>
   );
 };
