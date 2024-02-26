@@ -1,16 +1,28 @@
 // Layout.tsx
 import React, { ReactNode } from 'react';
 import ResponsiveAppBar from './ResponsiveAppBar';
+import { Box } from '@mui/material';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
-  <div>
-    <ResponsiveAppBar />
-    <main>{children}</main>
-  </div>
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'hidden',
+    }}
+  >
+    <Box sx={{ overflow: 'hidden' }}>
+      <ResponsiveAppBar />
+    </Box>
+    <Box sx={{ flex: 1, overflow: 'auto' }}>
+      <main>{children}</main>
+    </Box>
+  </Box>
 );
 
 export default Layout;

@@ -49,11 +49,11 @@ const ChatPage = () => {
   }
 
   return (
-    <Box>
+    <Box sx={{ height: '100vh' }}>
       {streamChat && (
         <Chat client={streamChat}>
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+            <Box sx={{ flex: '1 0 auto' }}>
               <MessagingSidebar
                 channelListOptions={channelListOptions}
                 onClick={() => console.log('clicked mobile view')}
@@ -61,7 +61,7 @@ const ChatPage = () => {
                 onPreviewSelect={() => setIsCreating(false)}
               />
             </Box>
-            <Box sx={{ flexGrow: 8 }}>
+            <Box sx={{ flex: '8 1 auto', overflow: 'auto' }}>
               <Channel>
                 <Window>
                   <ChannelHeader />
