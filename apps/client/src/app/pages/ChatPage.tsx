@@ -9,10 +9,10 @@ import MessagingThreadHeader from '../Components/MessagingThreadHeader';
 import { GiphyContextProvider } from '../Components/Context/Giphy';
 import data from '@emoji-mart/data';
 import { init, SearchIndex } from 'emoji-mart';
-import EmojiPicker from '@emoji-mart/react';
 import 'stream-chat-react/dist/css/v2/index.css';
 import CreateChannel from '../Components/CreateChannel';
 import ChannelInner from '../Components/ChannelInner';
+import { EmojiPicker } from 'stream-chat-react/emojis';
 
 init({ data });
 
@@ -40,11 +40,6 @@ const ChatPage = () => {
   }, []);
 
   const channelListOptions = { filters, options, sort };
-
-  const WrappedEmojiPicker = () => {
-    // const { theme } = useThemeContext();
-    return <EmojiPicker pickerProps={{ dark: 'str-chat__theme-dark' }} />;
-  };
 
   if (!streamChat) {
     return (
@@ -80,7 +75,8 @@ const ChatPage = () => {
               SendButton={SendButton}
               ThreadHeader={MessagingThreadHeader}
               TypingIndicator={() => null}
-              EmojiPicker={WrappedEmojiPicker}
+              EmojiPicker={EmojiPicker}
+              emojiSearchIndex={SearchIndex}
             >
               {isCreating && (
                 <CreateChannel

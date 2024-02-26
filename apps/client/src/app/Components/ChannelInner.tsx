@@ -10,7 +10,6 @@ import {
 import { useGiphyContext } from './Context/Giphy';
 import { StreamChatGenerics } from '../types';
 import MessagingChannelHeader from './MessagingChannelHeader';
-import { SearchIndex } from 'emoji-mart';
 
 export type ChannelInnerProps = {
   toggleMobile: () => void;
@@ -68,11 +67,7 @@ const ChannelInner = (props: ChannelInnerProps) => {
       <Window>
         <MessagingChannelHeader theme={theme} toggleMobile={toggleMobile} />
         <MessageList messageActions={actions} />
-        <MessageInput
-          focus
-          overrideSubmitHandler={overrideSubmitHandler}
-          // emojiSearchIndex={SearchIndex}
-        />
+        <MessageInput focus overrideSubmitHandler={overrideSubmitHandler} />
       </Window>
       <Thread />
     </>
