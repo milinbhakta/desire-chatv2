@@ -1,24 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useChannelStateContext, useChatContext } from 'stream-chat-react';
+import {
+  TypingIndicator,
+  useChannelStateContext,
+  useChatContext,
+} from 'stream-chat-react';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 import { StreamChatGenerics } from '../types';
-import { TypingIndicator } from './TypingIndicator';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+
 import {
   Avatar,
   Box,
+  IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography,
+  TextField,
 } from '@mui/material';
 
-type Props = {
-  theme: string;
-  toggleMobile: () => void;
-};
-
-const MessagingChannelHeader = (props: Props) => {
+const MessagingChannelHeader = () => {
   const { client } = useChatContext<StreamChatGenerics>();
   const { channel } = useChannelStateContext<StreamChatGenerics>();
   const [channelName, setChannelName] = useState(channel.data?.name || '');
@@ -60,28 +61,50 @@ const MessagingChannelHeader = (props: Props) => {
   }, [channelName, members]);
 
   const EditHeader = () => (
-    <form
-      style={{ flex: 1 }}
+    <Box
+      component="form"
+      sx={{ flex: 1 }}
       onSubmit={(event) => {
         event.preventDefault();
         inputRef?.current?.blur();
       }}
     >
-      <input
+      <TextField
         autoFocus
         className="channel-header__edit-input"
         onBlur={updateChannel}
         onChange={(event) => setChannelName(event.target.value)}
         placeholder="Type a new name for the chat"
-        ref={inputRef}
+        inputRef={inputRef}
         value={channelName}
+        fullWidth
+        variant="outlined"
       />
-    </form>
+    </Box>
   );
 
   return (
     <Box sx={{ paddingLeft: 2 }}>
-      <ListItem>
+      <ListItem
+        secondaryAction={
+          <Box>
+            {channelName !== 'Social Demo' &&
+              (!isEditing ? (
+                <IconButton
+                  onClick={() => {
+                    if (!isEditing) {
+                      setIsEditing(true);
+                    }
+                  }}
+                >
+                  <EditRoundedIcon />
+                </IconButton>
+              ) : (
+                <CheckCircleRoundedIcon />
+              ))}
+          </Box>
+        }
+      >
         <ListItemAvatar>
           <Avatar
             alt={`${
@@ -97,16 +120,10 @@ const MessagingChannelHeader = (props: Props) => {
           primaryTypographyProps={{ variant: 'h6' }}
         />
       </ListItem>
-      {/* {!isEditing ? null : <EditHeader />} */}
-      {/* <Box>
+      {!isEditing ? null : <EditHeader />}
+      <Box>
         <TypingIndicator />
-        {channelName !== 'Social Demo' &&
-          (!isEditing ? (
-            <ChannelInfoIcon {...{ isEditing, setIsEditing }} />
-          ) : (
-            <ChannelSaveIcon />
-          ))}
-      </Box> */}
+      </Box>
     </Box>
   );
 };
