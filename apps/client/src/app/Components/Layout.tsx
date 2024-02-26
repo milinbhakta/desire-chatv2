@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
     <Box sx={{ overflow: 'hidden' }}>
       <ResponsiveAppBar />
     </Box>
-    <Box sx={{ flex: 1, overflow: 'auto' }}>
+    <Box sx={{ flex: 1, overflow: 'hidden' }}>
       <main>{children}</main>
     </Box>
   </Box>
