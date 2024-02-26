@@ -5,12 +5,11 @@ import { Chat, Channel } from 'stream-chat-react';
 import { Box, CircularProgress } from '@mui/material';
 import MessagingSidebar from '../Components/MessagingSidebar';
 import { ChannelOptions, ChannelSort } from 'stream-chat';
-import SendButton from '../Components/SendButton';
 import MessagingThreadHeader from '../Components/MessagingThreadHeader';
-import { EmojiPicker } from 'stream-chat-react/emojis';
 import { GiphyContextProvider } from '../Components/Context/Giphy';
 import CreateChannel from '../Components/CreateChannel';
 import ChannelInner from '../Components/ChannelInner';
+import { MessageInputCustom } from '../Components/MessageInputCustom';
 // import 'stream-chat-react/dist/css/v2/index.css';
 
 const ChatPage = () => {
@@ -37,12 +36,6 @@ const ChatPage = () => {
   }, []);
 
   const channelListOptions = { filters, options, sort };
-
-  const WrappedEmojiPicker = () => {
-    // const { theme } = useThemeContext();
-
-    return <EmojiPicker />;
-  };
 
   if (!streamChat) {
     return (
@@ -76,9 +69,9 @@ const ChatPage = () => {
               <Channel
                 maxNumberOfFiles={10}
                 multipleUploads={true}
-                SendButton={SendButton}
                 ThreadHeader={MessagingThreadHeader}
                 TypingIndicator={() => null}
+                Input={MessageInputCustom}
               >
                 {isCreating && (
                   <CreateChannel

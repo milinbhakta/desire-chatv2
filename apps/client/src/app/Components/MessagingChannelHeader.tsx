@@ -4,6 +4,7 @@ import { useChannelStateContext, useChatContext } from 'stream-chat-react';
 import { StreamChatGenerics } from '../types';
 import { TypingIndicator } from './TypingIndicator';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import { Avatar, Box, Typography } from '@mui/material';
 
 type Props = {
   theme: string;
@@ -73,21 +74,28 @@ const MessagingChannelHeader = (props: Props) => {
   );
 
   return (
-    <div className="messaging__channel-header">
-      <div
-        id="mobile-nav-icon"
-        className={`${theme}`}
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        gap: '1rem',
+      }}
+    >
+      <Box
         onClick={() => toggleMobile()}
+        sx={{ padding: '0.5rem', cursor: 'pointer' }}
       >
         <MenuRoundedIcon />
-      </div>
+      </Box>
+      <Avatar>{channelName.charAt(0).toUpperCase()}</Avatar>
       {/* <AvatarGroup members={members} /> */}
       {!isEditing ? (
-        <div className="channel-header__name">{channelName || title}</div>
+        <Typography variant="body1">{channelName || title}</Typography>
       ) : (
         <EditHeader />
       )}
-      <div className="messaging__channel-header__right">
+      <Box>
         <TypingIndicator />
         {/* {channelName !== 'Social Demo' &&
           (!isEditing ? (
@@ -95,8 +103,8 @@ const MessagingChannelHeader = (props: Props) => {
           ) : (
             <ChannelSaveIcon />
           ))} */}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
