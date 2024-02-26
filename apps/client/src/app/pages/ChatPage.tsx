@@ -7,8 +7,6 @@ import MessagingSidebar from '../Components/MessagingSidebar';
 import { ChannelOptions, ChannelSort } from 'stream-chat';
 import MessagingThreadHeader from '../Components/MessagingThreadHeader';
 import { GiphyContextProvider } from '../Components/Context/Giphy';
-// import CreateChannel from '../Components/CreateChannel';
-// import ChannelInner from '../Components/ChannelInner';
 import data from '@emoji-mart/data';
 import { init, SearchIndex } from 'emoji-mart';
 import EmojiPicker from '@emoji-mart/react';
@@ -83,7 +81,6 @@ const ChatPage = () => {
               ThreadHeader={MessagingThreadHeader}
               TypingIndicator={() => null}
               EmojiPicker={WrappedEmojiPicker}
-              emojiSearchIndex={SearchIndex}
             >
               {isCreating && (
                 <CreateChannel

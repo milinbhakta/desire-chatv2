@@ -1,6 +1,7 @@
 import type { ThreadHeaderProps } from 'stream-chat-react';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { IconButton, ListItem, ListItemText } from '@mui/material';
 
 const MessagingThreadHeader = ({ closeThread, thread }: ThreadHeaderProps) => {
   const getReplyCount = () => {
@@ -10,13 +11,19 @@ const MessagingThreadHeader = ({ closeThread, thread }: ThreadHeaderProps) => {
   };
 
   return (
-    <div>
-      <div>
-        <p>Thread</p>
-        <p>{getReplyCount()}</p>
-      </div>
-      <CloseRoundedIcon onClick={closeThread} />
-    </div>
+    <ListItem
+      secondaryAction={
+        <IconButton onClick={closeThread}>
+          <CloseRoundedIcon />
+        </IconButton>
+      }
+    >
+      <ListItemText
+        primary={'Thread'}
+        primaryTypographyProps={{ variant: 'h6' }}
+        secondary={getReplyCount()}
+      />
+    </ListItem>
   );
 };
 
