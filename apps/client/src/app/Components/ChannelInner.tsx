@@ -64,40 +64,11 @@ const ChannelInner = (props: ChannelInnerProps) => {
 
   const actions = ['delete', 'edit', 'flag', 'mute', 'react', 'reply'];
 
-  const CustomMessage = () => {
-    const { message } = useMessageContext();
-
-    return (
-      <Box display="flex" alignItems="flex-start" gap={2}>
-        <Avatar src={message.user?.image} alt={message.user?.name} />
-        <Box>
-          <Typography variant="body1">{message.text}</Typography>
-          <Typography variant="caption" color="text.secondary">
-            {new Date(message.created_at ?? '').toISOString()}
-          </Typography>
-          {message.attachments && (
-            <Box>
-              {message.attachments.map((attachment, index) => (
-                <Box key={index}>
-                  <img
-                    src={attachment.image_url}
-                    alt={attachment.title}
-                    style={{ width: 250, height: 225 }}
-                  />
-                </Box>
-              ))}
-            </Box>
-          )}
-        </Box>
-      </Box>
-    );
-  };
-
   return (
     <>
       <Window>
         <MessagingChannelHeader theme={theme} toggleMobile={toggleMobile} />
-        <MessageList messageActions={actions} Message={CustomMessage} />
+        <MessageList messageActions={actions} />
         <MessageInput focus overrideSubmitHandler={overrideSubmitHandler} />
       </Window>
       <Thread />
