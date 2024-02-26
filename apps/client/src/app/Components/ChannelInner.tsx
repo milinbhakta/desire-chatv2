@@ -6,12 +6,10 @@ import {
   Window,
   useChannelActionContext,
   Thread,
-  useMessageContext,
 } from 'stream-chat-react';
 import { useGiphyContext } from './Context/Giphy';
 import { StreamChatGenerics } from '../types';
 import MessagingChannelHeader from './MessagingChannelHeader';
-import { Avatar, Box, Typography } from '@mui/material';
 
 export type ChannelInnerProps = {
   toggleMobile: () => void;
