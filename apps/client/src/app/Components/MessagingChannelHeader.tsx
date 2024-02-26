@@ -84,8 +84,12 @@ const MessagingChannelHeader = (props: Props) => {
       <ListItem>
         <ListItemAvatar>
           <Avatar
-            alt={`${members[0].user?.name}`}
-            src={`${members[0].user?.image}`}
+            alt={`${
+              members.length > 0 ? members[0].user?.name : channelName || title
+            }`}
+            src={`${
+              members.length > 0 ? members[0].user?.image : channelName || title
+            }`}
           />
         </ListItemAvatar>
         <ListItemText primary={channelName || title} />

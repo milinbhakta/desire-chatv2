@@ -77,8 +77,8 @@ const ChannelInner = (props: ChannelInnerProps) => {
           </Typography>
           {message.attachments && (
             <Box>
-              {message.attachments.map((attachment) => (
-                <Box key={attachment.id}>
+              {message.attachments.map((attachment, index) => (
+                <Box key={index}>
                   <img
                     src={attachment.image_url}
                     alt={attachment.title}

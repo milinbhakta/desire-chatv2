@@ -74,10 +74,7 @@ const ChatPage = () => {
                 Input={MessageInputCustom}
               >
                 {isCreating && (
-                  <CreateChannel
-                    toggleMobile={() => console.log('toggled mobile')}
-                    onClose={() => setIsCreating(false)}
-                  />
+                  <CreateChannel onClose={() => setIsCreating(false)} />
                 )}
                 <GiphyContextProvider>
                   <ChannelInner
