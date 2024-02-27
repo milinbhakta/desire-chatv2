@@ -5,6 +5,8 @@ import '@fontsource/fira-sans/300.css';
 import '@fontsource/fira-sans/400.css';
 import '@fontsource/fira-sans/500.css';
 import '@fontsource/fira-sans/700.css';
+import 'stream-chat-react/dist/css/v2/index.css';
+import  './styles.scss';
 
 import App from './app/app';
 

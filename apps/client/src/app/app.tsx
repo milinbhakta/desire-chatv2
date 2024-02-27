@@ -4,8 +4,6 @@ import Layout from './Components/Layout';
 import HomePage from './pages/Home';
 import { AuthProvider } from './Components/Context/AuthProvider';
 import Chat from './pages/ChatPage';
-import 'stream-chat-react/dist/css/v2/index.css';
-import './app.module.css';
 
 const App: React.FC = () => (
   <AuthProvider>

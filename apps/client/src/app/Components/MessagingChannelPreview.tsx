@@ -77,51 +77,53 @@ const MessagingChannelPreview = (props: MessagingChannelPreviewProps) => {
   };
 
   return (
-    <ListItemButton
-      selected={activeChannel?.id === channel.id}
-      onClick={(e) => {
-        onClick(e);
-        setActiveChannel?.(channel);
-      }}
-      dense
-    >
-      <ListItemAvatar>
-        <Avatar
-          {...stringAvatar(
-            channel.data && channel.data.name ? channel.data.name : 'No Name'
-          )}
+    <Box>
+      <ListItemButton
+        selected={activeChannel?.id === channel.id}
+        onClick={(e) => {
+          onClick(e);
+          setActiveChannel?.(channel);
+        }}
+        dense
+      >
+        <ListItemAvatar>
+          <Avatar
+            {...stringAvatar(
+              channel.data && channel.data.name ? channel.data.name : 'No Name'
+            )}
+          />
+        </ListItemAvatar>
+        <ListItemText
+          primary={
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                {channel.data?.name || getChannelName(members)}
+              </Typography>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="caption"
+                color="text.primary"
+              >
+                {getTimeStamp(channel)}
+              </Typography>
+            </Box>
+          }
+          secondary={renderMessageText() || 'No messages yet'}
         />
-      </ListItemAvatar>
-      <ListItemText
-        primary={
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Typography
-              sx={{ display: 'inline' }}
-              component="span"
-              variant="body2"
-              color="text.primary"
-            >
-              {channel.data?.name || getChannelName(members)}
-            </Typography>
-            <Typography
-              sx={{ display: 'inline' }}
-              component="span"
-              variant="caption"
-              color="text.primary"
-            >
-              {getTimeStamp(channel)}
-            </Typography>
-          </Box>
-        }
-        secondary={renderMessageText() || 'No messages yet'}
-      />
-    </ListItemButton>
+      </ListItemButton>
+    </Box>
   );
 };
 
