@@ -1,10 +1,11 @@
-import './app.module.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './Components/Layout';
 import HomePage from './pages/Home';
 import { AuthProvider } from './Components/Context/AuthProvider';
 import Chat from './pages/ChatPage';
+import 'stream-chat-react/dist/css/v2/index.css';
+import './app.module.css';
 
 const App: React.FC = () => (
   <AuthProvider>

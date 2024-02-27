@@ -9,7 +9,6 @@ import MessagingThreadHeader from '../Components/MessagingThreadHeader';
 import { GiphyContextProvider } from '../Components/Context/Giphy';
 import data from '@emoji-mart/data';
 import { init, SearchIndex } from 'emoji-mart';
-import 'stream-chat-react/dist/css/v2/index.css';
 import CreateChannel from '../Components/CreateChannel';
 import ChannelInner from '../Components/ChannelInner';
 import { EmojiPicker } from 'stream-chat-react/emojis';
