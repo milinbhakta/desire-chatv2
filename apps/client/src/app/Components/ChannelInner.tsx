@@ -11,12 +11,7 @@ import { useGiphyContext } from './Context/Giphy';
 import { StreamChatGenerics } from '../types';
 import MessagingChannelHeader from './MessagingChannelHeader';
 
-export type ChannelInnerProps = {
-  toggleMobile: () => void;
-  theme: string;
-};
-
-const ChannelInner = (props: ChannelInnerProps) => {
+const ChannelInner = () => {
   const { giphyState, setGiphyState } = useGiphyContext();
 
   const { sendMessage } = useChannelActionContext<StreamChatGenerics>();

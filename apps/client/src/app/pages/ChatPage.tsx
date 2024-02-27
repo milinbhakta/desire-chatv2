@@ -54,7 +54,8 @@ const ChatPage = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
+        maxHeight: '100%',
+        height: '100%',
       }}
     >
       <Chat client={streamChat} theme={`messaging str-chat__theme-dark`}>
@@ -87,10 +88,7 @@ const ChatPage = () => {
                 <CreateChannel onClose={() => setIsCreating(false)} />
               )}
               <GiphyContextProvider>
-                <ChannelInner
-                  theme={'str-chat__theme-dark'}
-                  toggleMobile={() => console.log('Mobile view toggled')}
-                />
+                <ChannelInner />
               </GiphyContextProvider>
             </Channel>
           </Box>
