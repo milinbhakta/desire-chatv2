@@ -87,9 +87,11 @@ const ChatPage = () => {
               {isCreating && (
                 <CreateChannel onClose={() => setIsCreating(false)} />
               )}
-              <GiphyContextProvider>
-                <ChannelInner />
-              </GiphyContextProvider>
+              {!isCreating && (
+                <GiphyContextProvider>
+                  <ChannelInner />
+                </GiphyContextProvider>
+              )}
             </Channel>
           </Box>
         </Box>

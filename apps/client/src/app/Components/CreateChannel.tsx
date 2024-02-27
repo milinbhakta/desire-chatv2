@@ -6,7 +6,6 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
 import { StreamChatGenerics } from '../types';
 import {
-  Badge,
   Box,
   Button,
   IconButton,
@@ -17,8 +16,8 @@ import {
   ListItemText,
   TextField,
   Typography,
-  styled,
 } from '@mui/material';
+import { StyledBadge } from '../utils';
 
 type Props = {
   onClose: () => void;
@@ -167,7 +166,7 @@ const CreateChannel = (props: Props) => {
   }, [handleKeyDown]);
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2, flex: '8 1 auto' }}>
       <Box
         sx={{
           display: 'flex',

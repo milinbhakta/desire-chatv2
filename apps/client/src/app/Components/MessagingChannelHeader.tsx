@@ -12,11 +12,13 @@ import { StreamChatGenerics } from '../types';
 import {
   Avatar,
   Box,
+  Divider,
   IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
   TextField,
+  useTheme,
 } from '@mui/material';
 
 const MessagingChannelHeader = () => {
@@ -26,6 +28,7 @@ const MessagingChannelHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const theme = useTheme();
 
   const members = Object.values(channel.state.members || {}).filter(
     (member) => member.user?.id !== client?.user?.id
@@ -84,7 +87,12 @@ const MessagingChannelHeader = () => {
   );
 
   return (
-    <Box sx={{ paddingLeft: 2 }}>
+    <Box
+      sx={{
+        paddingLeft: 2,
+        background: theme.palette.background.default,
+      }}
+    >
       <ListItem
         secondaryAction={
           <Box>
@@ -124,6 +132,7 @@ const MessagingChannelHeader = () => {
       <Box>
         <TypingIndicator />
       </Box>
+      <Divider variant="fullWidth" />
     </Box>
   );
 };
