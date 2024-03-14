@@ -1,5 +1,6 @@
 import { useChatContext, useTypingContext } from 'stream-chat-react';
 import { StreamChatGenerics } from '../types';
+import { Box } from '@mui/material';
 
 export const TypingIndicator = () => {
   const { client } = useChatContext<StreamChatGenerics>();
@@ -22,15 +23,22 @@ export const TypingIndicator = () => {
   }
 
   return (
-    <div className="messaging__typing-indicator">
+    <Box display="flex" alignItems="center">
+      <Box
+        width="10px"
+        height="10px"
+        borderRadius="50%"
+        bgcolor="primary.main"
+        mr={1}
+      />
       {text && (
-        <div className="dots">
+        <Box className="dots">
           <span className="dot" />
           <span className="dot" />
           <span className="dot" />
-        </div>
+        </Box>
       )}
       <div>{text}</div>
-    </div>
+    </Box>
   );
 };
